@@ -16,6 +16,8 @@
   /* Text colors */
   --text-dark: hsl(221, 14%, 31%);
   --text-light: hsl(0, 0%, 100%);
+
+  --anchor-text: hsl(39, 77%, 83%);
 }
 
 body.theme-2 {
@@ -32,6 +34,8 @@ body.theme-2 {
 
   --text-dark: hsl(60, 10%, 19%);
   --text-light: hsl(0, 0%, 100%);
+
+  --anchor-text: hsl(271, 68%, 32%);
 }
 
 body.theme-3 {
@@ -101,6 +105,10 @@ button {
   border: none;
   border-radius: 5px;
   box-shadow: 0 5px 0 var(--bg-key-3-shadow);
+}
+
+a {
+  color: var(--anchor-text);
 }
 
 .calculator-container {
