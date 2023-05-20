@@ -1,0 +1,28 @@
+{
+  "name": "calculator_site",
+  "version": "1.0",
+  "type": "module",
+  "description": "Solution to the calculator app challenge from Frontend Mentor",
+  "scripts": {
+    "dev": "vite",
+    "build": "prettier . && tsc && vite build",
+    "preview": "vite preview",
+    "test": "vitest run --coverage"
+  },
+  "keywords": [
+    "calculator",
+    "web",
+    "dev",
+    "javascript",
+    "frontend"
+  ],
+  "author": "Rafael Avilés",
+  "license": "ISC",
+  "devDependencies": {
+    "@vitest/coverage-c8": "^0.31.0",
+    "prettier": "2.8.8",
+    "typescript": "^4.9.5",
+    "vite": "^4.1.4",
+    "vitest": "^0.31.0"
+  }
+}

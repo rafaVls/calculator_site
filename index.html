@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+    <link rel="stylesheet" href="/style.css">
+    <title>Calculator app</title>
+  </head>
+  <body class="theme-1">
+    <div class="calculator-container" id="calculator-container">
+      <header>
+        <h1>calc</h1>
+
+        <!-- ========== [Theme toggle] ========== -->
+        <fieldset class="theme-switch">
+          <legend>THEME</legend>
+          <div>
+            <div class="radio-labels" id="theme-selectors">
+              <input type="radio" name="theme-selector" id="theme-1">
+              <label for="theme-1">1</label>
+              <input type="radio" name="theme-selector" id="theme-2">
+              <label for="theme-2">2</label>
+              <input type="radio" name="theme-selector" id="theme-3">
+              <label for="theme-3">3</label>
+            </div>
+            <!-- The actual slide circle thing -->
+            <div class="toggle-container" id="toggle-container">
+              <div class="toggle-circle theme-1" id="toggle"></div>
+            </div>
+          </div>
+        </fieldset>
+      </header>
+
+      <!-- ========== [Screen] ========== -->
+      <div class="screen" id="screen">
+        <small id="small-text" class="small-text"></small>
+        <span id="big-text" class="big-text">0</span>
+      </div>
+
+      <!-- ========== [Buttons] ========== -->
+      <div class="keypad" id="keypad">
+        <button id="7">7</button>
+        <button id="8">8</button>
+        <button id="9">9</button>
+        <button id="DEL" class="accent-button">DEL</button>
+        <button id="4">4</button>
+        <button id="5">5</button>
+        <button id="6">6</button>
+        <button id="PLUS">+</button>
+        <button id="1">1</button>
+        <button id="2">2</button>
+        <button id="3">3</button>
+        <button id="MINUS">-</button>
+        <button id="DOT">.</button>
+        <button id="0">0</button>
+        <button id="DIVIDE">/</button>
+        <button id="MULTIPLY">x</button>
+        <button id="RESET" class="big-button accent-button">RESET</button>
+        <button id="EQUALS" class="big-button equals-button">=</button>
+      </div>
+    </div>
+
+    <footer>
+      Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. 
+      Coded by <a href="https://personal-website-seven-ashy.vercel.app" target="_blank">Rafael Avilés</a>.    
+    </footer>
+
+    <script type="module" src="/src/index.ts"></script>
+  </body>
+</html>
