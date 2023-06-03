@@ -11,91 +11,84 @@ const DELETE_BUTTON_ID = "DEL";
 const DOT_BUTTON_ID = "DOT";
 
 class CalculatorManager {
-  private lastSymbol: string;
-  private equation: Equation;
-  private bigScreen: BigScreen;
-  private smallScreen: SmallScreen;
+  private _lastSymbol: string;
+  private _equation: Equation;
+  private _bigScreen: BigScreen;
+  private _smallScreen: SmallScreen;
 
   constructor() {
-    this.lastSymbol = "";
-    this.equation = new Equation();
-    this.bigScreen = new BigScreen(BIG_SCREEN_ID);
-    this.smallScreen = new SmallScreen(SMALL_SCREEN_ID);
+    this._lastSymbol = "";
+    this._equation = new Equation();
+    this._bigScreen = new BigScreen(BIG_SCREEN_ID);
+    this._smallScreen = new SmallScreen(SMALL_SCREEN_ID);
 
     const calculatorButtons = new CalculatorButtons();
     const numberButtons = calculatorButtons.getNumberButtons();
     const operatorButtons = calculatorButtons.getOperatorButtons();
-
-    const dotButton = calculatorButtons.buttons.find(btn => btn.id === DOT_BUTTON_ID);
-    const resetButton = calculatorButtons.buttons.find(btn => btn.id === RESET_BUTTON_ID);
-    const deleteButton = calculatorButtons.buttons.find(
-      btn => btn.id === DELETE_BUTTON_ID
-    );
+    const dotButton = calculatorButtons.getButton(DOT_BUTTON_ID);
+    const resetButton = calculatorButtons.getButton(RESET_BUTTON_ID);
+    const deleteButton = calculatorButtons.getButton(DELETE_BUTTON_ID);
 
     numberButtons.forEach(btn =>
-      btn.elem.addEventListener("click", () => this.bigScreen.write(btn.textContent))
+      btn.setClickListener(() => this._bigScreen.write(btn.textContent))
     );
-
     operatorButtons.forEach(btn =>
-      btn.elem.addEventListener("click", () => this.operatorHandler(btn))
+      btn.setClickListener(() => this._operatorHandler(btn))
     );
-
-    resetButton.elem.addEventListener("click", () => this.reset());
-    dotButton.elem.addEventListener("click", () => this.bigScreen.insertDecimal());
-    deleteButton.elem.addEventListener("click", () =>
-      this.bigScreen.deleteLastCharacter()
-    );
+    resetButton.setClickListener(() => this.reset());
+    dotButton.setClickListener(() => this._bigScreen.insertDecimal());
+    deleteButton.setClickListener(() => this._bigScreen.deleteLastCharacter());
   }
 
-  private operatorHandler(button: Button) {
+  private _operatorHandler(button: Button) {
     const btnText = button.textContent;
 
     if (btnText === "=") {
-      this.equation.addToRow(this.bigScreen.text);
-      const result = this.equation.getResult();
+      this._equation.push(this._bigScreen.text);
+      const result = this._equation.getResult();
 
       this.reset();
-      this.bigScreen.text = result;
+      this._bigScreen.text = result;
       return;
     }
 
-    if (this.bigScreen.text === "0" && !this.smallScreen.isEmpty()) {
-      this.smallScreen.replaceLastSymbol(this.lastSymbol, btnText);
+    if (this._bigScreen.text === "0" && !this._smallScreen.isEmpty) {
+      this._smallScreen.replaceLastSymbol(this._lastSymbol, btnText);
 
-      if (this.lastSymbol === "+" || this.lastSymbol === "-") {
-        this.equation.row--;
+      if (this._lastSymbol === "+" || this._lastSymbol === "-") {
+        this._equation.row--;
       }
 
-      this.lastSymbol = btnText;
-      this.equation.replaceOperator(this.lastSymbol);
+      this._lastSymbol = btnText;
+      this._equation.replaceLastSymbol(this._lastSymbol);
 
-      if (this.lastSymbol === "+" || this.lastSymbol === "-") {
-        this.equation.addNewRow();
+      if (this._lastSymbol === "+" || this._lastSymbol === "-") {
+        this._equation.addNewRow();
       }
       return;
     }
 
-    if (this.bigScreen.text === "0") {
+    if (this._bigScreen.text === "0") {
       return;
     }
 
-    this.lastSymbol = btnText;
-    if (this.lastSymbol === "+" || this.lastSymbol === "-") {
-      this.equation.addToRow(this.bigScreen.text, this.lastSymbol);
-      this.equation.addNewRow();
+    this._lastSymbol = btnText;
+    if (this._lastSymbol === "+" || this._lastSymbol === "-") {
+      this._equation.push(this._bigScreen.text, this._lastSymbol);
+      this._equation.addNewRow();
     } else {
-      this.equation.addToRow(this.bigScreen.text, this.lastSymbol);
+      this._equation.push(this._bigScreen.text, this._lastSymbol);
     }
 
-    this.smallScreen.text += this.bigScreen.text + " " + this.lastSymbol + " ";
-    this.bigScreen.text = "0";
+    this._smallScreen.text += this._bigScreen.text + " " + this._lastSymbol + " ";
+    this._bigScreen.text = "0";
   }
 
   private reset() {
-    this.lastSymbol = "";
-    this.equation.clearEquation();
-    this.bigScreen.text = "0";
-    this.smallScreen.text = "";
+    this._lastSymbol = "";
+    this._equation.clearEquation();
+    this._bigScreen.text = "0";
+    this._smallScreen.text = "";
   }
 }
 
