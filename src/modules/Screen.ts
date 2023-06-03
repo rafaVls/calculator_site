@@ -1,19 +1,19 @@
 class Screen {
-  private elem: HTMLElement;
+  private _elem: HTMLElement;
 
   constructor(elementId: string) {
-    this.elem = document.getElementById(elementId);
+    this._elem = document.getElementById(elementId);
   }
 
   get text() {
-    return this.elem.textContent;
+    return this._elem.textContent;
   }
 
   set text(content: string) {
-    this.elem.textContent = content;
+    this._elem.textContent = content;
   }
 
-  isEmpty() {
+  get isEmpty() {
     return this.text.length < 1;
   }
 }
