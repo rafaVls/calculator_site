@@ -1,16 +1,24 @@
 class Button {
-  elem: HTMLButtonElement;
+  private _elem: HTMLButtonElement;
 
   constructor(htmlButton: HTMLButtonElement) {
-    this.elem = htmlButton;
+    this._elem = htmlButton;
   }
 
   get id() {
-    return this.elem.id;
+    return this._elem.id;
   }
 
   get textContent() {
-    return this.elem.textContent;
+    return this._elem.textContent;
+  }
+
+  set textContent(text: string) {
+    this._elem.textContent = text;
+  }
+
+  setClickListener(listener: (ev: MouseEvent) => void) {
+    this._elem.addEventListener("click", listener);
   }
 
   keyBind(key: string) {
@@ -20,7 +28,7 @@ class Button {
       }
 
       if (key === e.key) {
-        this.elem.click();
+        this._elem.click();
       }
     });
   }
