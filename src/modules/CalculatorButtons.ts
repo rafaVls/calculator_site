@@ -7,29 +7,33 @@ const BUTTON_ELEMENTS = Array.from(
 ) as HTMLButtonElement[];
 
 class CalculatorButtons {
-  buttons: Button[];
+  private _buttons: Button[];
 
   constructor() {
-    this.buttons = BUTTON_ELEMENTS.map(elem => new Button(elem));
-    this.buttons.sort(this.sortByText);
-    new KeyBindManager(this.buttons);
+    this._buttons = BUTTON_ELEMENTS.map(elem => new Button(elem));
+    this._buttons.sort(this._sortByText);
+    new KeyBindManager(this._buttons);
   }
 
   getNumberButtons(): Button[] {
-    const indexOfOne = this.buttons.findIndex(btn => btn.elem.textContent === "0");
-    const numberButtons = this.buttons.splice(indexOfOne, AMOUNT_OF_NUMBER_BUTTONS);
+    const indexOfOne = this._buttons.findIndex(btn => btn.textContent === "0");
+    const numberButtons = this._buttons.splice(indexOfOne, AMOUNT_OF_NUMBER_BUTTONS);
     return numberButtons;
   }
 
   getOperatorButtons(): Button[] {
-    const operatorButtons = this.buttons.filter(btn =>
-      this.isOperator(btn.elem.textContent)
+    const operatorButtons = this._buttons.filter(btn =>
+      this._isOperator(btn.textContent)
     );
-    this.buttons = this.buttons.filter(btn => !operatorButtons.includes(btn));
+    this._buttons = this._buttons.filter(btn => !operatorButtons.includes(btn));
     return operatorButtons;
   }
 
-  private isOperator(textContent: string): boolean {
+  getButton(buttonID: string): Button {
+    return this._buttons.find(btn => btn.id === buttonID);
+  }
+
+  private _isOperator(textContent: string): boolean {
     const operatorSymbols = ["+", "-", "x", "/", "="];
     if (operatorSymbols.includes(textContent)) {
       return true;
@@ -37,9 +41,9 @@ class CalculatorButtons {
     return false;
   }
 
-  private sortByText(firstComparison: Button, secondComparison: Button) {
-    const fText = firstComparison.elem.textContent;
-    const sText = secondComparison.elem.textContent;
+  private _sortByText(firstComparison: Button, secondComparison: Button) {
+    const fText = firstComparison.textContent;
+    const sText = secondComparison.textContent;
 
     if (fText < sText) {
       return -1;
