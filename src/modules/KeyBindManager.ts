@@ -1,18 +1,16 @@
 import Button from "./Button";
 
 class KeyBindManager {
-  private btns: Button[];
+  private _btns: Button[];
 
   constructor(calculatorButtons: Button[]) {
-    this.btns = calculatorButtons;
+    this._btns = calculatorButtons;
     this.setupKeyBinds();
   }
 
   setupKeyBinds() {
-    this.btns.forEach(btn => {
-      const tc = btn.elem.textContent;
-
-      switch (tc) {
+    this._btns.forEach(btn => {
+      switch (btn.textContent) {
         case "x":
           btn.keyBind("x");
           btn.keyBind("*");
@@ -28,7 +26,7 @@ class KeyBindManager {
           btn.keyBind("Escape");
           break;
         default:
-          btn.keyBind(tc);
+          btn.keyBind(btn.textContent);
           break;
       }
     });
